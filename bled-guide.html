@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bled Guide — Things to Do | Villa Pomona</title>
+    <meta name="description" content="Your guide to Bled, Slovenia — top attractions, day trips, lake swimming, hiking, and how to make the most of your stay at Villa Pomona.">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .guide-hero { background: var(--green-900); padding: 140px 0 60px; text-align: center; color: #fff; }
+        .guide-hero h1 { font-family: var(--font-serif); font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 300; margin-bottom: 16px; }
+        .guide-hero h1 em { font-style: italic; color: var(--gold-light); }
+        .guide-hero p { color: rgba(255,255,255,0.7); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
+        .guide-nav { background: #fff; border-bottom: 1px solid var(--neutral-200); padding: 12px 0; position: sticky; top: 0; z-index: 100; }
+        .guide-nav-inner { max-width: var(--container-max); margin: 0 auto; padding: 0 24px; display: flex; gap: 24px; flex-wrap: wrap; }
+        .guide-nav a { font-size: 0.85rem; font-weight: 500; color: var(--neutral-600); letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.3s; }
+        .guide-nav a:hover { color: var(--green-600); }
+        .guide-section { padding: 80px 0; }
+        .guide-section:nth-child(even) { background: var(--neutral-50); }
+        .guide-card { background: #fff; padding: 32px; border-radius: 12px; border: 1px solid var(--neutral-200); margin-bottom: 20px; transition: all 0.3s var(--ease); }
+        .guide-card:hover { border-color: var(--green-300); box-shadow: 0 8px 30px rgba(0,0,0,0.04); }
+        .guide-card h3 { font-family: var(--font-serif); font-size: 1.3rem; color: var(--green-900); margin-bottom: 8px; }
+        .guide-card .guide-icon { font-size: 2rem; margin-bottom: 8px; display: block; }
+        .guide-card p { font-size: 0.95rem; color: var(--neutral-600); line-height: 1.7; margin-bottom: 8px; }
+        .guide-card .guide-meta { font-size: 0.85rem; color: var(--neutral-500); }
+        .guide-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+        .guide-form { max-width: 600px; margin: 0 auto; }
+        .guide-form .form-group { margin-bottom: 16px; }
+        .guide-form label { font-size: 0.8rem; font-weight: 600; color: var(--neutral-700); margin-bottom: 6px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+        .guide-form input, .guide-form select, .guide-form textarea { width: 100%; padding: 12px 16px; border: 1px solid var(--neutral-300); border-radius: 8px; font-family: var(--font-sans); font-size: 0.9rem; color: var(--neutral-800); }
+        .guide-form input:focus, .guide-form select:focus, .guide-form textarea:focus { outline: none; border-color: var(--green-500); box-shadow: 0 0 0 3px rgba(74,158,116,0.1); }
+        .guide-form textarea { resize: vertical; }
+        .guide-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px; }
+        .guide-tag { font-size: 0.8rem; padding: 6px 14px; border-radius: 50px; border: 1px solid var(--green-200); background: var(--green-50); color: var(--green-700); cursor: pointer; transition: all 0.2s; user-select: none; }
+        .guide-tag:hover, .guide-tag.selected { background: var(--green-600); color: #fff; border-color: var(--green-600); }
+        .guide-back { display: inline-block; margin-top: 24px; color: var(--green-600); font-size: 0.9rem; }
+        .guide-back:hover { text-decoration: underline; }
+        .guide-header { max-width: 640px; margin: 0 auto 48px; text-align: center; }
+        .guide-header .section-title { color: var(--green-900); }
+        .guide-header .section-title em { color: var(--green-600); }
+        .guide-header .section-desc { color: var(--neutral-600); }
+        @media (max-width: 768px) {
+            .guide-hero { padding: 100px 0 40px; }
+            .guide-section { padding: 48px 0; }
+            .guide-card { padding: 24px; }
+            .guide-nav-inner { gap: 12px; }
+            .guide-nav a { font-size: 0.78rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav" id="nav" style="background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);box-shadow:0 1px 20px rgba(0,0,0,0.06);padding:12px 0;">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo" style="color:var(--green-900);">
+                <span class="logo-text">Villa Pomona</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" style="display:none;">
+                <span style="background:var(--green-900);"></span><span style="background:var(--green-900);"></span><span style="background:var(--green-900);"></span>
+            </button>
+            <ul class="nav-links" id="navLinks" style="display:flex;">
+                <li><a href="index.html#about" style="color:var(--neutral-700);">About</a></li>
+                <li><a href="index.html#bedrooms" style="color:var(--neutral-700);">Bedrooms</a></li>
+                <li><a href="index.html#dining" style="color:var(--neutral-700);">Dining</a></li>
+                <li><a href="index.html#contact" class="nav-cta">Book Now</a></li>
+            </ul>
+            <style>@media(max-width:768px){.nav-links{display:none!important}.nav-links.active{display:flex!important}.nav-toggle{display:flex!important}}</style>
+        </div>
+    </nav>
+
+    <section class="guide-hero">
+        <div class="container">
+            <h1>Your Bled <em>Guide</em></h1>
+            <p>From the castle to the island, the gorge to the lake — here's how to make the most of your stay at Villa Pomona.</p>
+        </div>
+    </section>
+
+    <div class="guide-nav">
+        <div class="guide-nav-inner">
+            <a href="#attractions">Attractions</a>
+            <a href="#daytrips">Day Trips</a>
+            <a href="#outdoor">Outdoor</a>
+            <a href="#food">Food & Drink</a>
+            <a href="#plan">Plan Your Trip</a>
+        </div>
+    </div>
+
+    <section class="guide-section" id="attractions">
+        <div class="container">
+            <div class="guide-header">
+                <span class="section-tag">Must-See</span>
+                <h2 class="section-title">Top <em>Attractions</em></h2>
+                <p class="section-desc">The best of Bled — all within walking distance or a short drive from Villa Pomona.</p>
+            </div>
+            <div class="guide-grid">
+                <div class="guide-card">
+                    <span class="guide-icon">&#127984;</span>
+                    <h3>Bled Castle</h3>
+                    <p>Perched on a cliff 130 metres above the lake, Bled Castle is one of Slovenia's oldest castles. Visit the museum, print workshop, wine cellar, and enjoy panoramic views of the lake and the Julian Alps.</p>
+                    <p class="guide-meta">&#127915; ~€17 entry &bull; 10-min walk from Villa Pomona</p>
+                </div>
+                <div class="guide-card">
+                    <span class="guide-icon">&#128674;</span>
+                    <h3>Bled Island & Church</h3>
+                    <p>Take a traditional pletna boat to the island, climb the 99 stone steps, ring the wishing bell, and explore the Church of the Assumption. A classic Bled experience.</p>
+                    <p class="guide-meta">&#128674; Pletna boat ~€18 return &bull; 3-min walk to boat station</p>
+                </div>
+                <div class="guide-card">
+                    <span class="guide-icon">&#127956;</span>
+                    <h3>Vintgar Gorge</h3>
+                    <p>A 1.6 km wooden walkway follows the Radovna River through a stunning limestone gorge with waterfalls, pools, and emerald water. One of the most beautiful walks in Slovenia.</p>
+                    <p class="guide-meta">&#128694; ~€10 entry &bull; 5-min drive from the villa</p>
+                </div>
+                <div class="guide-card">
+                    <span class="guide-icon">&#127748;</span>
+                    <h3>Lake Swimming</h3>
+                    <p>Grajsko beach is just steps from the villa — the main swimming spot with warm, clean water in summer. For a quieter spot, head to the west shore or Mala Zaka beach.</p>
+                    <p class="guide-meta">&#127754; Free &bull; Lifejackets at rental stands</p>
+                </div>
+                <div class="guide-card">
+                    <span class="guide-icon">&#128692;</span>
+                    <h3>Cycling Around the Lake</h3>
+                    <p>A 6 km path circles the entire lake — easy cycling with constant views. Bike rentals are available everywhere in town. Allow 30–40 minutes at a relaxed pace with photo stops.</p>
+                    <p class="guide-meta">&#128690; Bike rental ~€10–15/hr &bull; Flat easy terrain</p>
+                </div>
+                <div class="guide-card">
+                    <span class="guide-icon">&#127938;</span>
+                    <h3>Winter Sports</h3>
+                    <p>The lake shore turns into an outdoor ice skating rink in winter. Nearby Vogel ski resort offers skiing with lake views. Cross-country trails also available.</p>
+                    <p class="guide-meta">&#9976; Vogel ski pass ~€45/day &bull; 20-min drive</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="guide-section" id="daytrips">
+        <div class="container">
+            <div class="guide-header">
+                <span class="section-tag">Explore Further</span>
+                <h2 class="section-title">Day <em>Trips</em></h2>
+                <p class="section-desc">Venture beyond Bled — all easily reachable by car or with our shuttle service.</p>
+            </div>
+            <div class="guide-grid">
+                <div class="guide-card">
+                    <span class="guide-icon">&#9968;</span>
+                    <h3>Lake Bohinj</h3>
+                    <p>Slovenia's largest permanent lake — quieter and wilder than Bled, with incredible swimming, hiking, and the Savica Waterfall nearby.</p>
+                    <p class="guide-meta">&#128663; ~25 min drive &bull; Free parking</p>
+                </div>
+                <div class="guide-card">
+                    <span class="guide-icon">&#127984;</span>
+                    <h3>Ljubljana</h3>
+                    <p>Slovenia's charming capital with the old town, Ljubljana Castle, Central Market, and the famous dragon bridge. Great for a half-day or evening trip.</p>
+                    <p class="guide-meta">&#128663; ~40 min drive &bull; Direct bus also available</p>
+                </div>
+                <div class="guide-card">
+                    <span class="guide-icon">&#127747;</span>
+                    <h3>Triglav National Park</h3>
+                    <p>Slovenia's only national park is on your doorstep. Hike to the Savica Waterfall, explore the Soča River valley, or challenge yourself with a climb to Mount Triglav.</p>
+                    <p class="guide-meta">&#127957; Enter at Bohinj &bull; Trails for all skill levels</p>
+                </div>
+                <div class="guide-card">
+                    <span class="guide-icon">&#127481;&#127487;</span>
+                    <h3>Venice, Italy</h3>
+                    <p>A stunning day trip across the border. We can arrange shuttle transport to Venice for a day of canals, culture, and Italian cuisine.</p>
+                    <p class="guide-meta">&#128663; ~2.5 hr drive &bull; Shuttle available on request</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="guide-section" id="outdoor">
+        <div class="container">
+            <div class="guide-header">
+                <span class="section-tag">Active</span>
+                <h2 class="section-title">Outdoor <em>Adventures</em></h2>
+                <p class="section-desc">For those who want to explore Bled's natural beauty up close.</p>
+            </div>
+            <div class="guide-grid">
+                <div class="guide-card">
+                    <span class="guide-icon">&#127953;</span>
+                    <h3>Hiking Trails</h3>
+                    <p>From the easy lakeside path to the challenging climb up Mala Osojnica for the iconic island photo — there's a trail for every fitness level.</p>
+                </div>
+                <div class="guide-card">
+                    <span class="guide-icon">&#128692;</span>
+                    <h3>Stand-Up Paddleboarding</h3>
+                    <p>Rent a SUP and explore the lake from the water. Calm conditions make it perfect for beginners. Sunrise paddling is magical.</p>
+                </div>
+                <div class="guide-card">
+                    <span class="guide-icon">&#127749;</span>
+                    <h3>Paragliding</h3>
+                    <p>Soar above Bled with a tandem paragliding flight from nearby Straža hill. Unforgettable views of the lake, castle, and Alps.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="guide-section" id="food">
+        <div class="container">
+            <div class="guide-header">
+                <span class="section-tag">Culinary</span>
+                <h2 class="section-title">Food & <em>Drink</em></h2>
+                <p class="section-desc">From the villa's own dining to the best restaurants in Bled.</p>
+            </div>
+            <div class="guide-grid">
+                <div class="guide-card">
+                    <span class="guide-icon">&#127860;</span>
+                    <h3>Villa Pomona Breakfast</h3>
+                    <p>Start your day with breakfast by the pool or on the terrace — fresh pastries, local cheeses, seasonal fruits, and coffee with garden views.</p>
+                </div>
+                <div class="guide-card">
+                    <span class="guide-icon">&#127858;</span>
+                    <h3>Dinner at Villa Adora</h3>
+                    <p>Our sister property offers multi-course dinners prepared by a private chef. Exquisite Slovenian cuisine in an intimate setting.</p>
+                </div>
+                <div class="guide-card">
+                    <span class="guide-icon">&#127863;</span>
+                    <h3>Wine Tastings</h3>
+                    <p>Villa Adora features a rich wine cellar with Slovenia's finest wines from Goriška Brda, Štajerska, and beyond.</p>
+                </div>
+                <div class="guide-card">
+                    <span class="guide-icon">&#127856;</span>
+                    <h3>Bled Cream Cake</h3>
+                    <p>Don't leave without trying the legendary kremšnita — Bled's iconic cream cake. The original is served at Hotel Park, just 5 min away.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="guide-section" id="plan" style="background:var(--green-50);">
+        <div class="container">
+            <div class="guide-header">
+                <span class="section-tag">We Can Help</span>
+                <h2 class="section-title">Plan Your <em>Perfect Day</em></h2>
+                <p class="section-desc">Not sure what to do? We're happy to help you plan your itinerary, recommend restaurants, book activities, or arrange transport. Just ask.</p>
+            </div>
+            <div class="guide-form">
+                <form id="guideForm" onsubmit="event.preventDefault();handleGuideForm(this)">
+                    <div class="form-group"><label for="guideName">Name</label><input type="text" id="guideName" required placeholder="Your name"></div>
+                    <div class="form-group"><label for="guideEmail">Email</label><input type="email" id="guideEmail" required placeholder="your@email.com"></div>
+                    <div class="form-group"><label for="guideDates">Your stay dates</label><input type="text" id="guideDates" placeholder="e.g. July 15–18, 2026"></div>
+                    <div class="form-group"><label>What interests you?</label><div class="guide-tags"><span class="guide-tag" onclick="this.classList.toggle('selected')">&#127956; Hiking</span><span class="guide-tag" onclick="this.classList.toggle('selected')">&#127754; Swimming</span><span class="guide-tag" onclick="this.classList.toggle('selected')">&#127860; Food & Wine</span><span class="guide-tag" onclick="this.classList.toggle('selected')">&#127984; Culture</span><span class="guide-tag" onclick="this.classList.toggle('selected')">&#128692; Cycling</span><span class="guide-tag" onclick="this.classList.toggle('selected')">&#128142; Relaxation</span><span class="guide-tag" onclick="this.classList.toggle('selected')">&#127938; Winter Sports</span><span class="guide-tag" onclick="this.classList.toggle('selected')">&#128247; Photography</span></div></div>
+                    <div class="form-group"><label for="guideMessage">Anything specific you'd like help with?</label><textarea id="guideMessage" rows="4" placeholder="Restaurant recommendations, activity bookings, transport arrangements..."></textarea></div>
+                    <button type="submit" class="btn btn-primary btn-full">Send — Help me plan my trip</button>
+                </form>
+                <p style="text-align:center;margin-top:16px;font-size:0.9rem;color:var(--neutral-500);">Or email us directly at <a href="mailto:evita.vilebled@gmail.com" style="color:var(--green-600);text-decoration:underline;">evita.vilebled@gmail.com</a></p>
+                <div id="guideThankYou" style="display:none;text-align:center;padding:40px;"><div style="font-size:3rem;margin-bottom:16px;">&#127800;</div><h3 style="font-family:var(--font-serif);font-size:1.5rem;color:var(--green-900);margin-bottom:12px;">Thank You!</h3><p style="color:var(--neutral-600);">We'll get back to you within 24 hours to help plan your perfect Bled stay.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="logo-text">Villa Pomona</span>
+                    <p>A peaceful villa retreat in Bled's most tranquil neighbourhood.</p>
+                </div>
+                <div class="footer-links"><h4>Explore</h4><ul><li><a href="index.html#about">About</a></li><li><a href="index.html#bedrooms">Bedrooms</a></li><li><a href="index.html#dining">Dining</a></li><li><a href="bled-guide.html">Bled Guide</a></li></ul></div>
+                <div class="footer-links"><h4>Visit</h4><ul><li><a href="index.html#location">Location</a></li><li><a href="index.html#contact">Contact</a></li><li><a href="index.html#contact">Book Now</a></li></ul></div>
+                <div class="footer-links"><h4>Connect</h4><ul><li><span class="protected-contact" data-type="email" data-value="evita.vilebled@gmail.com" onclick="revealContact(this)" style="cursor:pointer;font-size:0.9rem;color:rgba(255,255,255,0.5)">&#128274; Reveal email</span></li><li><span class="protected-contact" data-type="phone" data-value="+386 51 603 858" onclick="revealContact(this)" style="cursor:pointer;font-size:0.9rem;color:rgba(255,255,255,0.5)">&#128274; Reveal phone</span></li></ul></div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Villa Pomona Bled. All rights reserved.</p>
+                <p class="footer-sister">Managed by <a href="https://www.adorabled.com">Vile Bled, d.o.o.</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded',function(){var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');if(t&&l){t.addEventListener('click',function(){t.classList.toggle('active');l.classList.toggle('active')});var a=l.querySelectorAll('a');for(var i=0;i<a.length;i++){a[i].addEventListener('click',function(){t.classList.remove('active');l.classList.remove('active')})}}});
+    function revealContact(el){var v=el.getAttribute('data-value'),t=el.getAttribute('data-type');el.innerHTML=t==='email'?'<a href="mailto:'+v+'" style="color:inherit">'+v+'</a>':'<a href="tel:'+v.replace(/\s/g,'')+'" style="color:inherit">'+v+'</a>';el.style.cursor='default';el.onclick=null}
+    function handleGuideForm(f){var name=f.guideName.value,email=f.guideEmail.value,dates=f.guideDates.value||'Not specified',interest=[],tags=f.querySelectorAll('.guide-tag.selected');for(var i=0;i<tags.length;i++)interest.push(tags[i].textContent.trim());var msg=f.guideMessage.value||'None',subject='Trip Planning - Villa Pomona - '+name,body='Trip Planning Request\n\nName: '+name+'\nEmail: '+email+'\nStay Dates: '+dates+'\nInterests: '+(interest.join(', ')||'Not specified')+'\nMessage: '+msg;window.location.href='mailto:evita.vilebled@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);document.getElementById('guideForm').style.display='none';document.getElementById('guideThankYou').style.display='block'}
+    </script>
+</body>
+</html>
