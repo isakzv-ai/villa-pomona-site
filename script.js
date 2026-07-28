@@ -239,3 +239,15 @@ window.addEventListener('load', function() {
         }
     }, {passive: true});
 })();
+
+function revealContact(el) {
+    var val = el.getAttribute('data-value');
+    var type = el.getAttribute('data-type');
+    if (type === 'email') {
+        el.innerHTML = '<a href="mailto:' + val + '" style="color:inherit">' + val + '</a>';
+    } else {
+        el.innerHTML = '<a href="tel:' + val.replace(/\s/g,'') + '" style="color:inherit">' + val + '</a>';
+    }
+    el.style.cursor = 'default';
+    el.onclick = null;
+}
