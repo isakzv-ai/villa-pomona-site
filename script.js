@@ -146,7 +146,7 @@ function initBookingForm() {
     });
 
     function mailtoFallback(subject, body, form) {
-        window.location.href = 'mailto:evita.vilebled@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        window.location.href = 'mailto:isakzv@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
         showFormConfirmation(form);
     }
 }
