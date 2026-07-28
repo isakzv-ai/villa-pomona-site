@@ -118,6 +118,15 @@ ul { list-style: none; }
 .price-amount { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 500; color: var(--green-700); }
 .price-night { font-size: 0.8rem; color: var(--neutral-500); }
 
+/* Dining */
+.dining { background: var(--green-50); }
+.dining-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+.dining-card { background: #fff; padding: 40px 32px; border-radius: 12px; text-align: center; border: 1px solid var(--neutral-200); transition: all 0.3s var(--ease); }
+.dining-card:hover { border-color: var(--green-300); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.06); }
+.dining-icon { font-size: 2.5rem; margin-bottom: 16px; display: block; }
+.dining-card h3 { font-family: var(--font-serif); font-size: 1.3rem; color: var(--green-900); margin-bottom: 12px; }
+.dining-card p { font-size: 0.9rem; color: var(--neutral-600); line-height: 1.6; }
+
 .amenities { background: var(--green-50); }
 .amenities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
 .amenity-card { background: #fff; padding: 32px; border-radius: 12px; border: 1px solid var(--neutral-200); transition: all 0.3s var(--ease); text-align: center; }
