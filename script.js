@@ -92,42 +92,22 @@ function initBookingForm() {
             }
         });
     }
-    var FORM_ENDPOINT = 'https://formspree.io/f/your-form-id-here';
-
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         var submitBtn = form.querySelector('button[type="submit"]');
+        var captcha = form.querySelector('#captcha');
+        if (captcha && captcha.value.trim() !== '7') {
+            captcha.style.borderColor = '#e74c3c';
+            captcha.focus();
+            return;
+        }
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending...';
 
-        var formData = {
-            name: form.name.value,
-            email: form.email.value,
-            checkin: form.checkin.value,
-            checkout: form.checkout.value,
-            suite: form.suite.value || 'Not specified',
-            guests: form.guests.value,
-            children: form.children ? form.children.value : '0',
-            transfer: form.transfer ? form.transfer.value : 'none',
-            message: form.message.value || 'None'
-        };
-
-        var subject = 'Reservation Request - Villa Pomona - ' + formData.name;
-        var body = 'Reservation Request\n\n' +
-            'Name: ' + formData.name + '\n' +
-            'Email: ' + formData.email + '\n' +
-            'Check-in: ' + formData.checkin + '\n' +
-            'Check-out: ' + formData.checkout + '\n' +
-            'Suite: ' + formData.suite + '\n' +
-            'Guests: ' + formData.guests + '\n' +
-            'Children: ' + formData.children + '\n' +
-            'Airport Transfer: ' + formData.transfer + '\n' +
-            'Special Requests: ' + formData.message;
-
-        fetch(FORM_ENDPOINT, {
+        var formData = new FormData(form);
+        fetch('https://formsubmit.co/ajax/isakzv@gmail.com', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify(formData)
+            body: formData
         })
         .then(function(response) {
             submitBtn.disabled = false;
@@ -135,21 +115,15 @@ function initBookingForm() {
             if (response.ok) {
                 showFormConfirmation(form);
             } else {
-                mailtoFallback(subject, body, form);
+                alert('Something went wrong. Please email us directly at isakzv@gmail.com');
             }
         })
         .catch(function() {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Send Reservation Request';
-            mailtoFallback(subject, body, form);
+            alert('Something went wrong. Please email us directly at isakzv@gmail.com');
         });
     });
-
-    function mailtoFallback(subject, body, form) {
-        window.location.href = 'mailto:isakzv@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-        showFormConfirmation(form);
-    }
-}
 
 function showFormConfirmation(form) {
     var originalHTML = form.innerHTML;
