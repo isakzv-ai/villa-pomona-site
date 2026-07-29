@@ -10,8 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initNavigation() {
     var nav = document.getElementById('nav');
+    var floating = document.getElementById('floatingBook');
     window.addEventListener('scroll', function() {
-        nav.classList.toggle('scrolled', window.pageYOffset > 60);
+        var s = window.pageYOffset;
+        nav.classList.toggle('scrolled', s > 60);
+        if (floating) floating.classList.toggle('visible', s > 400);
     }, { passive: true });
 }
 
