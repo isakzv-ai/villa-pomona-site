@@ -47,10 +47,16 @@
         <div class="hero-content">
             <p class="hero-subtitle">Bled, Slovenia &mdash; Peaceful Villa Retreat</p>
             <h1 class="hero-title">Villa <em>Pomona</em></h1>
-            <p class="hero-desc">A peaceful villa in Bled's most tranquil neighbourhood of historic villas. Three charming bedrooms, a private pool house, swimming pool, lounge library, and parking for five cars &mdash; all steps from Lake Bled. Breakfast and drinks available on request.</p>
+            <p class="hero-desc">A peaceful villa in Bled's most tranquil neighbourhood of historic villas. Three charming bedrooms, a private pool house, swimming pool, lounge library, and parking for five cars &mdash; all steps from Lake Bled.</p>
             <div class="hero-actions">
                 <a href="#bedrooms" class="btn btn-primary">Explore Bedrooms</a>
                 <a href="#contact" class="btn btn-outline">Reserve Your Stay</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat"><span>3</span><small>Bedrooms</small></div>
+                <div class="hero-stat"><span>1</span><small>Pool House</small></div>
+                <div class="hero-stat"><span>5</span><small>Parking Spots</small></div>
+                <div class="hero-stat"><span>3</span><small>Min to Lake</small></div>
             </div>
             <div class="hero-scroll">
                 <span>Scroll to discover</span>
@@ -185,24 +191,24 @@
                 <h2 class="section-title">Breakfast by the <em>Pool</em></h2>
                 <p class="section-desc">Start your day with a delicious breakfast served by the pool or with a stunning pool view. In the evening, your sister property Villa Adora awaits with a fine multi-course dinner experience.</p>
             </div>
-            <div class="dining-grid">
-                <div class="dining-card reveal">
-                    <span class="dining-icon">&#127860;</span>
+            <div class="card-grid">
+                <div class="card reveal">
+                    <span class="card-icon">&#127860;</span>
                     <h3>Poolside Breakfast</h3>
                     <p>Enjoy a rich breakfast by the pool or on the terrace overlooking the garden &mdash; fresh pastries, local produce, and your morning coffee in the fresh Bled air.</p>
                 </div>
-                <div class="dining-card reveal">
-                    <span class="dining-icon">&#127858;</span>
+                <div class="card reveal">
+                    <span class="card-icon">&#127858;</span>
                     <h3>Dinner at Villa Adora</h3>
                     <p>Villa Pomona is connected to <a href="https://www.adorabled.com" style="color:var(--green-600);text-decoration:underline;">Villa Adora</a>, where guests can enjoy exquisite multi-course dinners prepared by a private chef.</p>
                 </div>
-                <div class="dining-card reveal">
-                    <span class="dining-icon">&#127863;</span>
+                <div class="card reveal">
+                    <span class="card-icon">&#127863;</span>
                     <h3>Wine Cellar</h3>
                     <p>Villa Adora features a rich wine cellar with a carefully curated selection of Slovenian wines &mdash; perfect for pairing with your dinner or an evening tasting.</p>
                 </div>
-                <div class="dining-card reveal">
-                    <span class="dining-icon">&#127863;</span>
+                <div class="card reveal">
+                    <span class="card-icon">&#127863;</span>
                     <h3>Slovenian Wines</h3>
                     <p>Discover award-winning wines from Goriška Brda, Štajerska, and beyond. Our selection showcases the best of Slovenian winemaking tradition.</p>
                 </div>
@@ -217,24 +223,24 @@
                 <h2 class="section-title">Getting You <em>Wherever</em></h2>
                 <p class="section-desc">We offer convenient shuttle service and guided arrangements to make your stay effortless &mdash; from airport pickups to day trips beyond Bled.</p>
             </div>
-            <div class="dining-grid">
-                <div class="dining-card reveal">
-                    <span class="dining-icon">&#127937;</span>
+            <div class="card-grid">
+                <div class="card reveal">
+                    <span class="card-icon">&#127937;</span>
                     <h3>Airport Transfers</h3>
                     <p>Seamless pickup and drop-off from Ljubljana (LJU) &mdash; €60, or Klagenfurt (KLU) &mdash; €90. Just let us know your flight details.</p>
                 </div>
-                <div class="dining-card reveal">
-                    <span class="dining-icon">&#128205;</span>
+                <div class="card reveal">
+                    <span class="card-icon">&#128205;</span>
                     <h3>Bled Castle & Local</h3>
                     <p>We can drive you to Bled Castle, the town centre, lake viewpoints, Vintgar Gorge, the 18-hole Golf Course Bled, and anywhere else in the Bled area upon request.</p>
                 </div>
-                <div class="dining-card reveal">
-                    <span class="dining-icon">&#128652;</span>
+                <div class="card reveal">
+                    <span class="card-icon">&#128652;</span>
                     <h3>Ljubljana & Beyond</h3>
                     <p>Day trips to Ljubljana, Lake Bohinj, Triglav National Park, or even Venice, Italy &mdash; we arrange transport and can help plan your itinerary.</p>
                 </div>
-                <div class="dining-card reveal">
-                    <span class="dining-icon">&#128674;</span>
+                <div class="card reveal">
+                    <span class="card-icon">&#128674;</span>
                     <h3>Boat to the Island</h3>
                     <p>We can guide you on boat rental options to reach Bled Island &mdash; traditional pletna boats, electric boats, or rowboats. The island church and its famous bell await.</p>
                 </div>
@@ -489,6 +495,8 @@
             </div>
         </div>
     </footer>
+
+    <div class="toast" id="toast" role="status"></div>
 
     <script src="script.js"></script>
 </body>

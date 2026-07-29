@@ -280,9 +280,7 @@
         </div>
     </footer>
 
-    <script>
-    function handleGuideForm(f){f.querySelector('[type=submit]').disabled=true;f.querySelector('[type=submit]').textContent='Sending...';var i=f.querySelector('#interestsInput');if(i){var s=[];f.querySelectorAll('.guide-tag.selected').forEach(function(t){s.push(t.textContent.trim())});i.value=s.join(', ')}}
-    document.addEventListener('DOMContentLoaded',function(){var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');if(t&&l){t.addEventListener('click',function(){t.classList.toggle('active');l.classList.toggle('active')});var a=l.querySelectorAll('a');for(var i=0;i<a.length;i++){a[i].addEventListener('click',function(){t.classList.remove('active');l.classList.remove('active')})}}});function revealContact(el){var v=el.getAttribute('data-value'),t=el.getAttribute('data-type');el.innerHTML=t==='email'?'<a href="mailto:'+v+'" style="color:inherit">'+v+'</a>':'<a href="tel:'+v.replace(/\s/g,'')+'" style="color:inherit">'+v+'</a>';el.style.cursor='default';el.onclick=null}
-    </script>
+    <script src="script.js"></script>
+    <div class="toast" id="toast" role="status"></div>
 </body>
 </html>

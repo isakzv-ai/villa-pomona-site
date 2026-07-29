@@ -5,16 +5,13 @@ document.addEventListener('DOMContentLoaded', function() {
     initBookingForm();
     initSmoothScroll();
     initParallax();
+    initLightbox();
 });
 
 function initNavigation() {
     var nav = document.getElementById('nav');
     window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 60) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
+        nav.classList.toggle('scrolled', window.pageYOffset > 60);
     }, { passive: true });
 }
 
@@ -23,59 +20,47 @@ function initMobileNav() {
     var links = document.getElementById('navLinks');
     if (!toggle || !links) return;
     toggle.addEventListener('click', function() {
-        toggle.classList.toggle('active');
+        toggle.classList.toggle('open');
         links.classList.toggle('active');
+        document.body.classList.toggle('no-scroll');
     });
-    var linkAnchors = links.querySelectorAll('a');
-    for (var i = 0; i < linkAnchors.length; i++) {
-        linkAnchors[i].addEventListener('click', function() {
-            toggle.classList.remove('active');
+    links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() {
+            toggle.classList.remove('open');
             links.classList.remove('active');
+            document.body.classList.remove('no-scroll');
         });
-    }
-    document.addEventListener('click', function(e) {
-        if (!toggle.contains(e.target) && !links.contains(e.target)) {
-            toggle.classList.remove('active');
-            links.classList.remove('active');
-        }
     });
 }
 
 function initScrollAnimations() {
-    var selectors = ['.about-text', '.about-image', '.suite-card', '.amenity-card', '.testimonial-card', '.contact-info', '.contact-form-wrapper', '.section-header', '.gallery-item'];
+    var selectors = ['.about-text', '.about-image', '.suite-card', '.card', '.amenity-card', '.testimonial-card', '.contact-info', '.contact-form-wrapper', '.section-header', '.gallery-item', '.hero-scroll', '.hero-stats'];
     for (var s = 0; s < selectors.length; s++) {
         var elements = document.querySelectorAll(selectors[s]);
         for (var i = 0; i < elements.length; i++) {
             elements[i].classList.add('reveal');
-            elements[i].style.transitionDelay = (i * 0.1) + 's';
+            if (i > 0) elements[i].classList.add('reveal-delay-' + Math.min(i, 3));
         }
     }
     var observer = new IntersectionObserver(function(entries) {
-        for (var e = 0; e < entries.length; e++) {
-            if (entries[e].isIntersecting) {
-                entries[e].target.classList.add('visible');
-            }
-        }
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-    var reveals = document.querySelectorAll('.reveal');
-    for (var r = 0; r < reveals.length; r++) {
-        observer.observe(reveals[r]);
-    }
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
 }
 
 function initSmoothScroll() {
-    var anchors = document.querySelectorAll('a[href^="#"]');
-    for (var i = 0; i < anchors.length; i++) {
-        anchors[i].addEventListener('click', function(e) {
-            e.preventDefault();
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
             var target = document.querySelector(this.getAttribute('href'));
             if (target) {
+                e.preventDefault();
                 var navHeight = document.getElementById('nav').offsetHeight;
-                var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - navHeight, behavior: 'smooth' });
             }
         });
-    }
+    });
 }
 
 function initBookingForm() {
@@ -87,9 +72,7 @@ function initBookingForm() {
     if (checkinInput) {
         checkinInput.setAttribute('min', today);
         checkinInput.addEventListener('change', function() {
-            if (checkoutInput && checkinInput.value) {
-                checkoutInput.setAttribute('min', checkinInput.value);
-            }
+            if (checkoutInput && checkinInput.value) checkoutInput.setAttribute('min', checkinInput.value);
         });
     }
     form.addEventListener('submit', function(e) {
@@ -103,96 +86,59 @@ function initBookingForm() {
         }
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending...';
-
-        var formData = new FormData(form);
-        fetch('https://formsubmit.co/ajax/isakzv@gmail.com', {
-            method: 'POST',
-            body: formData
-        })
+        fetch('https://formsubmit.co/ajax/isakzv@gmail.com', { method: 'POST', body: new FormData(form) })
         .then(function(response) {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Send Reservation Request';
-            if (response.ok) {
-                showFormConfirmation(form);
-            } else {
-                alert('Something went wrong. Please email us directly at isakzv@gmail.com');
-            }
+            if (response.ok) showFormConfirmation(form);
+            else showToast('Error sending. Please email us at isakzv@gmail.com');
         })
         .catch(function() {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Send Reservation Request';
-            alert('Something went wrong. Please email us directly at isakzv@gmail.com');
+            showToast('Error sending. Please email us at isakzv@gmail.com');
         });
     });
+}
 
 function showFormConfirmation(form) {
-    var originalHTML = form.innerHTML;
-    form.innerHTML = '<div style="text-align:center;padding:40px 20px;">' +
-        '<div style="font-size:3rem;margin-bottom:16px;">&#127800;</div>' +
-        '<h3 style="font-family:var(--font-serif);font-size:1.5rem;color:var(--green-900);margin-bottom:12px;">Thank You!</h3>' +
-        '<p style="color:var(--neutral-600);line-height:1.6;">Your reservation request has been sent. We\'ll respond within 24 hours.</p>' +
-        '</div>';
-    form.setAttribute('data-original-html', originalHTML);
+    var html = form.innerHTML;
+    form.innerHTML = '<div style="text-align:center;padding:40px 20px;"><div style="font-size:3rem;margin-bottom:16px;">&#10003;</div><h3 style="font-family:var(--font-serif);font-size:1.5rem;color:var(--green-900);margin-bottom:12px;">Thank You!</h3><p style="color:var(--neutral-600);line-height:1.6;">Your request has been sent. We\'ll respond within 24 hours.</p></div>';
+    form.setAttribute('data-original-html', html);
 }
 
 function initParallax() {
     var hero = document.querySelector('.hero-content');
     if (!hero) return;
     window.addEventListener('scroll', function() {
-        var scrolled = window.pageYOffset;
-        if (scrolled < window.innerHeight) {
-            hero.style.transform = 'translateY(' + (scrolled * 0.3) + 'px)';
-            hero.style.opacity = 1 - (scrolled / window.innerHeight) * 0.5;
+        var s = window.pageYOffset;
+        if (s < window.innerHeight) {
+            hero.style.transform = 'translateY(' + (s * 0.25) + 'px)';
+            hero.style.opacity = 1 - (s / window.innerHeight) * 0.4;
         }
     }, { passive: true });
 }
 
-window.addEventListener('load', function() {
-    var reveals = document.querySelectorAll('.reveal');
-    for (var i = 0; i < reveals.length; i++) {
-        var rect = reveals[i].getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.9) {
-            reveals[i].classList.add('visible');
-        }
-    }
-});
-
-(function(){
+function initLightbox() {
     var items = document.querySelectorAll('.gallery-item');
     var lightbox = document.getElementById('lightbox');
+    if (!lightbox || !items.length) return;
     var lightboxImg = document.getElementById('lightboxImage');
     var lightboxCaption = document.getElementById('lightboxCaption');
     var lightboxCounter = document.getElementById('lightboxCounter');
     var currentIndex = 0;
-    var totalItems = items.length;
     var images = [];
-    items.forEach(function(item, i){
+    items.forEach(function(item, i) {
         var img = item.querySelector('img');
         var label = item.querySelector('.gallery-label');
-        images.push({src: img.src, alt: img.alt, label: label ? label.textContent : ''});
-    });
-    function openLightbox(index) {
-        currentIndex = index;
-        updateLightbox();
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    function closeLightbox() {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-    function updateLightbox() {
-        var img = images[currentIndex];
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt;
-        lightboxCaption.textContent = img.label;
-        lightboxCounter.textContent = (currentIndex + 1) + ' / ' + totalItems;
-    }
-    function nextImage() { currentIndex = (currentIndex + 1) % totalItems; updateLightbox(); }
-    function prevImage() { currentIndex = (currentIndex - 1 + totalItems) % totalItems; updateLightbox(); }
-    items.forEach(function(item, i) {
+        images.push({ src: img.src, alt: img.alt, label: label ? label.textContent : '' });
         item.addEventListener('click', function() { openLightbox(i); });
     });
+    function openLightbox(index) { currentIndex = index; updateLightbox(); lightbox.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeLightbox() { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
+    function updateLightbox() { lightboxImg.src = images[currentIndex].src; lightboxImg.alt = images[currentIndex].alt; lightboxCaption.textContent = images[currentIndex].label; lightboxCounter.textContent = (currentIndex + 1) + ' / ' + images.length; }
+    function nextImage() { currentIndex = (currentIndex + 1) % images.length; updateLightbox(); }
+    function prevImage() { currentIndex = (currentIndex - 1 + images.length) % images.length; updateLightbox(); }
     document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
     document.getElementById('lightboxNext').addEventListener('click', function(e) { e.stopPropagation(); nextImage(); });
     document.getElementById('lightboxPrev').addEventListener('click', function(e) { e.stopPropagation(); prevImage(); });
@@ -204,24 +150,47 @@ window.addEventListener('load', function() {
         if (e.key === 'ArrowLeft') prevImage();
     });
     var touchStartX = 0;
-    lightbox.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+    lightbox.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
     lightbox.addEventListener('touchend', function(e) {
         var diff = touchStartX - e.changedTouches[0].screenX;
-        if (Math.abs(diff) > 50) {
-            if (diff > 0) nextImage();
-            else prevImage();
-        }
-    }, {passive: true});
-})();
+        if (Math.abs(diff) > 50) { if (diff > 0) nextImage(); else prevImage(); }
+    }, { passive: true });
+}
 
 function revealContact(el) {
     var val = el.getAttribute('data-value');
     var type = el.getAttribute('data-type');
-    if (type === 'email') {
-        el.innerHTML = '<a href="mailto:' + val + '" style="color:inherit">' + val + '</a>';
-    } else {
-        el.innerHTML = '<a href="tel:' + val.replace(/\s/g,'') + '" style="color:inherit">' + val + '</a>';
-    }
+    el.innerHTML = type === 'email' ? '<a href="mailto:' + val + '" style="color:inherit">' + val + '</a>' : '<a href="tel:' + val.replace(/\s/g, '') + '" style="color:inherit">' + val + '</a>';
     el.style.cursor = 'default';
     el.onclick = null;
+}
+
+var toastTimer;
+function showToast(msg) {
+    var toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function() { toast.classList.remove('show'); }, 3000);
+}
+
+function handleGuideForm(f) {
+    f.querySelector('[type=submit]').disabled = true;
+    f.querySelector('[type=submit]').textContent = 'Sending...';
+    var i = f.querySelector('#interestsInput');
+    if (i) {
+        var s = [];
+        f.querySelectorAll('.guide-tag.selected').forEach(function(t) { s.push(t.textContent.trim()); });
+        i.value = s.join(', ');
+    }
+}
+
+function updateInterests(el) {
+    var input = document.getElementById('interestsInput');
+    if (!input) return;
+    var tags = document.querySelectorAll('.guide-tag.selected');
+    var interests = [];
+    tags.forEach(function(t) { interests.push(t.textContent.trim()); });
+    input.value = interests.join(', ');
 }
